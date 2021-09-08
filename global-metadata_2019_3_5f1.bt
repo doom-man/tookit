@@ -1,0 +1,237 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.1 Binary Template
+//
+//      File: UnityMetadata.bt
+//   Authors: xia0
+//   Version: 0.1
+//   Purpose: Parse unity3d metadata file
+//  Category: Game
+// File Mask: *.dat
+//  ID Bytes: FA B1 1B AF
+//   History: 
+//   0.1    2019-10-31 xia0: init basic unity3d metadata info version
+//------------------------------------------------
+// Blog: https://4ch12dy.site
+// Github: https://github.com/4ch12dy
+// https://www.sweetscape.com/010editor/manual/DataTypes.htm
+// http://www.sweetscape.com/010editor/repository/templates/
+LittleEndian();
+typedef int32 TypeIndex;
+typedef int32 TypeDefinitionIndex;
+typedef int32 FieldIndex;
+typedef int32 DefaultValueIndex;
+typedef int32 DefaultValueDataIndex;
+typedef int32 CustomAttributeIndex;
+typedef int32 ParameterIndex;
+typedef int32 MethodIndex;
+typedef int32 GenericMethodIndex;
+typedef int32 PropertyIndex;
+typedef int32 EventIndex;
+typedef int32 GenericContainerIndex;
+typedef int32 GenericParameterIndex;
+typedef int16 GenericParameterConstraintIndex;
+typedef int32 NestedTypeIndex;
+typedef int32 InterfacesIndex;
+typedef int32 VTableIndex;
+typedef int32 InterfaceOffsetIndex;
+typedef int32 RGCTXIndex;
+typedef int32 StringIndex;
+typedef int32 StringLiteralIndex;
+typedef int32 GenericInstIndex;
+typedef int32 ImageIndex;
+typedef int32 AssemblyIndex;
+typedef int32 InteropDataIndex;
+typedef int32 int32_t;
+typedef uint32 uint32_t;
+
+
+typedef struct Il2CppGlobalMetadataHeader
+{
+    int32_t sanity;
+    int32_t version;
+    int32_t stringLiteralOffset; // string data for managed code
+    int32_t stringLiteralCount;
+    int32_t stringLiteralDataOffset;
+    int32_t stringLiteralDataCount;
+    int32_t stringOffset; // string data for metadata
+    int32_t stringCount;
+    int32_t eventsOffset; // Il2CppEventDefinition
+    int32_t eventsCount;
+    int32_t propertiesOffset; // Il2CppPropertyDefinition
+    int32_t propertiesCount;
+    int32_t methodsOffset; // Il2CppMethodDefinition
+    int32_t methodsCount;
+    int32_t parameterDefaultValuesOffset; // Il2CppParameterDefaultValue
+    int32_t parameterDefaultValuesCount;
+    int32_t fieldDefaultValuesOffset; // Il2CppFieldDefaultValue
+    int32_t fieldDefaultValuesCount;
+    int32_t fieldAndParameterDefaultValueDataOffset; // uint8_t
+    int32_t fieldAndParameterDefaultValueDataCount;
+    int32_t fieldMarshaledSizesOffset; // Il2CppFieldMarshaledSize
+    int32_t fieldMarshaledSizesCount;
+    int32_t parametersOffset; // Il2CppParameterDefinition
+    int32_t parametersCount;
+    int32_t fieldsOffset; // Il2CppFieldDefinition
+    int32_t fieldsCount;
+    int32_t genericParametersOffset; // Il2CppGenericParameter
+    int32_t genericParametersCount;
+    int32_t genericParameterConstraintsOffset; // TypeIndex
+    int32_t genericParameterConstraintsCount;
+    int32_t genericContainersOffset; // Il2CppGenericContainer
+    int32_t genericContainersCount;
+    int32_t nestedTypesOffset; // TypeDefinitionIndex
+    int32_t nestedTypesCount;
+    int32_t interfacesOffset; // TypeIndex
+    int32_t interfacesCount;
+    int32_t vtableMethodsOffset; // EncodedMethodIndex
+    int32_t vtableMethodsCount;
+    int32_t interfaceOffsetsOffset; // Il2CppInterfaceOffsetPair
+    int32_t interfaceOffsetsCount;
+    int32_t typeDefinitionsOffset; // Il2CppTypeDefinition
+    int32_t typeDefinitionsCount;
+    int32_t imagesOffset; // Il2CppImageDefinition
+    int32_t imagesCount;
+    int32_t assembliesOffset; // Il2CppAssemblyDefinition
+    int32_t assembliesCount;
+    int32_t metadataUsageListsOffset; // Il2CppMetadataUsageList
+    int32_t metadataUsageListsCount;
+    int32_t metadataUsagePairsOffset; // Il2CppMetadataUsagePair
+    int32_t metadataUsagePairsCount;
+    int32_t fieldRefsOffset; // Il2CppFieldRef
+    int32_t fieldRefsCount;
+    int32_t referencedAssembliesOffset; // int32_t
+    int32_t referencedAssembliesCount;
+    int32_t attributesInfoOffset; // Il2CppCustomAttributeTypeRange
+    int32_t attributesInfoCount;
+    int32_t attributeTypesOffset; // TypeIndex
+    int32_t attributeTypesCount;
+    int32_t unresolvedVirtualCallParameterTypesOffset; // TypeIndex
+    int32_t unresolvedVirtualCallParameterTypesCount;
+    int32_t unresolvedVirtualCallParameterRangesOffset; // Il2CppRange
+    int32_t unresolvedVirtualCallParameterRangesCount;
+    int32_t windowsRuntimeTypeNamesOffset; // Il2CppWindowsRuntimeTypeNamePair
+    int32_t windowsRuntimeTypeNamesSize;
+    int32_t exportedTypeDefinitionsOffset; // TypeDefinitionIndex
+    int32_t exportedTypeDefinitionsCount;
+} Il2CppGlobalMetadataHeader;
+
+typedef struct Il2CppImageDefinition
+{
+    StringIndex nameIndex;
+    AssemblyIndex assemblyIndex;
+
+    TypeDefinitionIndex typeStart;
+    uint32_t typeCount;
+
+    TypeDefinitionIndex exportedTypeStart;
+    uint32_t exportedTypeCount;
+
+    MethodIndex entryPointIndex;
+    uint32_t token;
+
+    CustomAttributeIndex customAttributeStart;
+    uint32_t customAttributeCount;
+} Il2CppImageDefinition;
+
+typedef ubyte uint8_t;
+
+#define PUBLIC_KEY_BYTE_LENGTH 8
+typedef struct Il2CppAssemblyNameDefinition
+{
+    StringIndex nameIndex;
+    StringIndex cultureIndex;
+    StringIndex hashValueIndex;
+    StringIndex publicKeyIndex;
+    uint32 hash_alg;
+    int32 hash_len;
+    uint32 flags;
+    int32 major;
+    int32 minor;
+    int32 build;
+    int32 revision;
+    ubyte public_key_token[PUBLIC_KEY_BYTE_LENGTH];
+} Il2CppAssemblyNameDefinition;
+
+typedef struct Il2CppAssemblyDefinition
+{
+    ImageIndex imageIndex;
+    uint32 token;
+    int32 referencedAssemblyStart;
+    int32 referencedAssemblyCount;
+    Il2CppAssemblyNameDefinition aname;
+} Il2CppAssemblyDefinition;
+
+typedef struct Il2CppTypeDefinition
+{
+    StringIndex nameIndex;
+    StringIndex namespaceIndex;
+    TypeIndex byvalTypeIndex;
+    TypeIndex byrefTypeIndex;
+
+    TypeIndex declaringTypeIndex;
+    TypeIndex parentIndex;
+    TypeIndex elementTypeIndex; // we can probably remove this one. Only used for enums
+    
+    GenericContainerIndex genericContainerIndex;
+
+    uint32 flags;
+
+    FieldIndex fieldStart;
+    MethodIndex methodStart;
+    EventIndex eventStart;
+    PropertyIndex propertyStart;
+    NestedTypeIndex nestedTypesStart;
+    InterfacesIndex interfacesStart;
+    VTableIndex vtableStart;
+    InterfacesIndex interfaceOffsetsStart;
+
+    uint16 method_count;
+    uint16 property_count;
+    uint16 field_count;
+    uint16 event_count;
+    uint16 nested_type_count;
+    uint16 vtable_count;
+    uint16 interfaces_count;
+    uint16 interface_offsets_count;
+
+    // bitfield to portably encode boolean values as single bits
+    // 01 - valuetype;
+    // 02 - enumtype;
+    // 03 - has_finalize;
+    // 04 - has_cctor;
+    // 05 - is_blittable;
+    // 06 - is_import_or_windows_runtime;
+    // 07-10 - One of nine possible PackingSize values (0, 1, 2, 4, 8, 16, 32, 64, or 128)
+    uint32 bitfield;
+    uint32 token;
+} Il2CppTypeDefinition;
+
+typedef struct Il2CppMetadataUsageList
+{
+    uint32 start;
+    uint32 count;
+} Il2CppMetadataUsageList;
+
+
+typedef struct Il2CppMetadataUsagePair
+{
+    uint32 destinationIndex;
+    uint32 encodedSourceIndex;
+} Il2CppMetadataUsagePair;
+
+Il2CppGlobalMetadataHeader metadataHeader <comment="metadata header information">;
+FSeek(metadataHeader.imagesOffset);
+Il2CppImageDefinition imagesDefinitions[metadataHeader.imagesCount / sizeof(Il2CppImageDefinition)] <comment="metadata define images">;
+
+
+FSeek(metadataHeader.assembliesOffset);
+Il2CppAssemblyDefinition assemblyDefinitions[metadataHeader.imagesCount / sizeof(Il2CppImageDefinition)] <comment="metadata define assemblys">;
+
+FSeek(metadataHeader.typeDefinitionsOffset);
+Il2CppTypeDefinition typeDefinitions[metadataHeader.assembliesCount / sizeof(Il2CppAssemblyDefinition)] <comment="metadata define types">;
+
+FSeek(metadataHeader.metadataUsagePairsOffset);
+Il2CppMetadataUsagePair metadataUsagePair[metadataHeader.metadataUsagePairsCount / sizeof(Il2CppMetadataUsagePair)] <comment="metadata metadata usage pair">;
+
+FSeek(metadataHeader.metadataUsageListsOffset);
+Il2CppMetadataUsageList metadataUsageList[metadataHeader.metadataUsageListsCount / sizeof(Il2CppMetadataUsageList)] <comment="metadata metadata usage list">;
